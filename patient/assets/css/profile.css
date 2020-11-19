@@ -1,0 +1,87 @@
+html,
+body,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: "Roboto", sans-serif;
+}
+.w3-text-teal {
+  color: #006696 !important;
+}
+button {
+  font-size: 20px !important;
+}
+.but {
+  margin-left: 570px;
+  margin-top: 30px;
+  margin-bottom: 30px;
+}
+
+.but2 {
+  margin-left: 595px;
+  margin-top: 30px;
+  margin-bottom: 30px;
+}
+.nn {
+  display: flex;
+}
+
+.top-menu {
+  margin-left: 80px;
+  margin-top: 10px;
+}
+.payment,
+.consultant,
+.prescription,
+.c_payment,
+.m_payment,
+.d_payment {
+  display: none;
+}
+
+.menu {
+  padding: 16px 55px;
+  border-radius: 4px;
+  margin-left: 10px;
+  background: #45b289;
+  color: white;
+  letter-spacing: 1px;
+  font-weight: 500;
+}
+.menu:hover {
+  background: #114b63;
+}
+.menu2 {
+  padding: 16px 55px;
+  border-radius: 4px;
+  margin-left: 10px;
+  background: #114b63 !important;
+  color: white;
+  letter-spacing: 1px;
+  font-weight: 500;
+}
+
+.badge {
+  color: #000;
+  background-color: #2bc056;
+}
+.prescription {
+  margin-top: 30px;
+}
+
+.prescription td {
+  color: #fff;
+  font-size: 14px;
+  font-weight: 600;
+}
+.prescription th,
+td {
+  border-bottom: solid #17a2b8 !important;
+}
+a {
+  text-decoration: none;
+  color: #fff !important;
+}
