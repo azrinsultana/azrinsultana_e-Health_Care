@@ -38,7 +38,7 @@ button {
 .prescription,
 .c_payment,
 .m_payment,
-.d_payment {
+.d_payment,.appointment {
   display: none;
 }
 
@@ -84,4 +84,7 @@ td {
 a {
   text-decoration: none;
   color: #fff !important;
+}
+.payment {
+  color: rgb(0, 91, 151) !important;
 }

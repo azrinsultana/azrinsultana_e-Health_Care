@@ -4,9 +4,11 @@ const bodyParser 		= require('body-parser');
 const exSession 		= require('express-session');
 const cookieParser 		= require('cookie-parser');
 const upload            = require('express-fileupload');
+const flash            = require('connect-flash');
 const { body, validationResult } = require('express-validator');
 
 const login				= require('./controllers/login');
+const register			= require('./controllers/register');
 const pharmacy			= require('./controllers/pharmacy');
 const logout			= require('./controllers/logout');
 const home				= require('./controllers/home');
@@ -22,10 +24,12 @@ app.use('/abc', express.static('assets'))
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(cookieParser());
 app.use(upload());
+app.use(flash());
 app.use(exSession({secret: 'secret value', saveUninitialized: true, resave: false}));
 
 
 app.use('/login', login);
+app.use('/register', register);
 app.use('/pharmacy', pharmacy);
 app.use('/home', home);
 app.use('/logout', logout);

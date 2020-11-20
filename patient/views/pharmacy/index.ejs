@@ -59,14 +59,14 @@
           <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                 <ul class=" navbar-nav">
                       <li class="active">
-                            <a href="/">Home</a>
+                            <a onclick="goBack()">Home</a>
                       </li>
                      
                       <li>
                             <a href="team.html">Team</a>
                       </li>
                       <li>
-                            <a href="appointment.html">Appointment</a>
+                            <a href="/home/appointment">Appointment</a>
                       </li>
                       <li>
                             <a href="blog.html">Blog</a>
@@ -390,6 +390,11 @@
 <script src="/abc/plugins/jquery-ui.js"></script>
 <script src="/abc/plugins/timePicker.js"></script>
 <script src="/abc/js/script.js"></script>
+<script>
+  function goBack() {
+    window.history.back();
+  }
+  </script>
 </body>
 
 </html>

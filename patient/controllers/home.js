@@ -8,18 +8,33 @@ router.get('*',  (req, res, next)=>{
 	}else{
 		next();
 	}
-});
+}); 
 
 router.get('/', (req, res)=>{
-	res.render('home/index', {uname: req.cookies['uname']});
-});
-
-
-router.get('/userlist', (req, res)=>{
-
-	userModel.getAll_emp(function(results){
-		res.render('home/userlist', {users: results});
+		res.render('home/index', {uname: req.cookies['uname']});
 	});
+/* router.get('/user', (req, res)=>{
+	var user = {
+		uname: req.cookies['uname']
+	}
+		res.render('home/index2', {user : user});
+	}); */
+
+
+
+router.get('/appointment', (req, res)=>{
+
+		res.render('home/appointment' , {uname: req.cookies['uname']});
+
+})
+router.post('/appointment', (req, res)=>{
+
+		var dep_name=req.body.dep_name;
+		var date=req.body.date;
+		var doc_name=req.body.doc_name;
+		
+
+		res.render('user/profile',{ap_date:date,dep_name:dep_name,doc_name:doc_name});
 
 })
 
