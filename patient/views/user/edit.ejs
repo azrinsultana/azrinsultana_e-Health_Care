@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>E-Health Care | Edit Patient</title>
+	<link rel="stylesheet" href="/abc/css/bootstrap.min.css">
+</head>
+<body>
+	<div class="container">
+		
+		
+	
+	
+		<form method="post">
+			<fieldset>
+				<legend>Edit Patient Info</legend>
+				<table>
+					<tr>
+						<td>Email</td>
+						<td><input type="email" name="email" value="<%=p_info.email%>"></td>
+					</tr>
+					<tr>
+						<td>Password</td>
+						<td><input type="text" name="password" value="<%=p_info.password%>"></td>
+					</tr>
+					<tr>
+						<td>Conatact No</td>
+						<td><input type="text" name="contactno" value="<%=p_info.contactno%>"></td>
+					</tr>
+					<tr>
+						<td>Address</td>
+						<td><input type="text" name="p_address" value="<%=h_info.p_address%>"></td>
+					</tr>
+					<tr>
+						<td>BMI</td>
+						<td><input type="text" name="p_bmi" value="<%=h_info.p_bmi%>"></td>
+					</tr>
+					<tr>
+						<td>Weight</td>
+						<td><input type="text" name="p_weight" value="<%=h_info.p_weight%>"></td>
+					</tr>
+					<tr>
+						<td>Blood Presure</td>
+						<td><input type="text" name="p_blood_p" value="<%=h_info.p_blood_p%>"></td>
+					</tr>
+					<tr>
+						<td>Calorie Intake</td>
+						<td><input type="text" name="p_cal_in" value="<%=h_info.p_cal_in%>"></td>
+					</tr>
+					
+					
+					<tr>
+						<td></td>
+						<td><input type="submit" name="submit" value="Submit"></td>
+					</tr>
+				</table>
+			</fieldset>
+		</form>
+	</div>
+
+</body>
+</html>

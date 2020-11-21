@@ -1,0 +1,11 @@
+.reg{
+    margin-top: -16rem !important;
+}
+.ui-datepicker{
+    background:#e5e5e5 !important;
+    padding: 30px;
+}
+
+#ptTimeSelectCntr,#ui-datepicker-div{
+    display: none;
+}
