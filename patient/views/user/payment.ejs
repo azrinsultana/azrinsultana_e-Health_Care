@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Payment</title>
+    <link rel="stylesheet" href="/abc/css/bootstrap.min.css">
+    <style>
+        tr,td{
+            padding-bottom: 28px !important;
+    padding-left: 14px;
+        }
+        .submit{
+            padding-left: 10px;
+        }
+    </style>
+</head>
+<body>
+    <form method="post" style="margin-top: 50px; margin-left: 50px;">
+        <fieldset>
+            <legend>Payment</legend>
+            <table>
+                <tr>
+                    <td>Payment gateway</td><br>
+                    <td>
+                        <select class="form-control" id="sel1" name="gateway">
+                            <option value="bkash">bkash</option>
+                            <option value="Card">Card</option>
+                            <option value="Internet Banking">Internet Banking</option>
+                          </select>
+                    </td>
+                </tr><br>
+                <tr>
+                    <td>Date</td>
+                    <td><input type="date" name="payment_date" id=""></td>
+                </tr>
+               
+                <tr>
+                    <td><input type="hidden" name="payment_status" value="Successfull" id=""> </td>
+                    <td><input type="hidden"name="p_id"  value="<%= p_id%>" id=""> </td>
+                    <td><input type="hidden" name="d_id"  value="<%= d_id%>" id=""> </td>
+                    <td><input type="submit" class="submit" name="submit" value="Submit"></td>
+                </tr>
+            </table>
+        </fieldset>
+    </form>
+</body>
+</html>

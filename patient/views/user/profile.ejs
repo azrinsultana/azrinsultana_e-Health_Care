@@ -16,7 +16,7 @@
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 <body class="w3-light-grey">
     <div class="top-menu">
-        <button type="button" class="btn btn-info menu" id="" onclick="goBack()"><i class="fa fa-angle-left" style="font-size:18px"></i></button>
+        <button type="button" class="btn btn-info menu" id="" ><a href="/home/"><i class="fa fa-angle-left" style="font-size:18px"></i></a></button>
         <button type="button" class="btn btn-info menu" id="profile">Profile</button>
         <button type="button" class="btn btn-info menu" id="appointment">Appointment</button>
         <button type="button" class="btn btn-info menu" id="payment">Payment</button>
@@ -133,7 +133,7 @@
   </div>
 </div>
 <div class="payment">
-  <div class="top-menu">
+  <div class="">
     <button type="button" class="btn btn-info menu2" id="c_payment">Consultant Payment</button>
     <button type="button" class="btn btn-info menu2" id="m_payment">Medecine Payment</button>
     <button type="button" class="btn btn-info menu2" id="d_payment">Diagnostics Payment</button>
@@ -145,21 +145,31 @@
     <table class="table table-borderless">
       <thead>
         <tr>
-          <th>consultant Name</th>
+          <th>Department Name</th>
           <th>Date</th>
+          <th>Time</th>
+          <th>Payment Status</th>
+          <th>Pay Now</th>
         </tr>
       </thead>
       <tbody>
+        <% consult_info.forEach( function(std){ %>
+
         <tr>
-          <td>John</td>
-          <td>11-11-20</td>
-        </tr>
+          <td><%= std.department %></td>
+          <td><%= std.date %></td>
+          <td><%= std.time %></td>
+          <td><%= std.payment_status %></td>
+        
        
+          <td><a href="/user/payment/<%= std.p_id %>/<%= std.d_id %>" style="color: blue !important;font-size: 14px;">Pay</a></td>
+        </tr>
+        <%})%>
       </tbody>
     </table>
   </div>
 </div>
-<div class="prescription">
+<div class="prescription" id="HTMLtoPDF2">
   <div class="container">
 
     <div class="card-group">
@@ -195,7 +205,9 @@
           <td>Napa</td>
           <td>10</td>
         </tr>
-        
+        <tr>
+          <td><a href="#" onclick="HTMLtoPDF2()"  style = "color: blue !important;font-size: 14px;">Download PDF</a></td>
+        </tr>
       </tbody>
     </table>
         </div>
@@ -203,27 +215,30 @@
       </div>  
     </div></div>
 <div class="c_payment">
-  <div class="container">
+  <div class="container" id="HTMLtoPDF">
     <h2>Consultant Payment History</h2>
     <table class="table table-borderless">
       <thead>
         <tr>
-          <th>Consultant Name</th>
           <th>Paid Amount</th>
           <th>Payment Gateway</th>
           <th>Date</th>
           <th>Payment Status</th>
+          <th>Invoice</th>
         </tr>
       </thead>
       <tbody>
+        <% payment_info.forEach( function(std){ %>
+
         <tr>
-          <td>John</td>
-          <td>100</td>
-          <td>bkash</td>
-          <td>11-11-20</td>
-          <td><span class="badge badge-success">Success</span></td>
+          <td><%= std.amount %></td>
+          <td><%= std.gateway %></td>
+          <td><%= std.payment_date %></td>
+          <td><span class="badge badge-success"><%= std.payment_status %></span></td>
+          <%})%>
+          <td>	<a href="#" onclick="HTMLtoPDF()"  style = "color: blue !important;font-size: 14px;">Download PDF</a></td>
         </tr>
-       
+        
       </tbody>
     </table>
   </div>
@@ -288,5 +303,9 @@
     window.history.back();
   }
   </script>
+
+<script src="/abc/js/jspdf.js"></script>
+<script src="/abc/js/jquery-2.1.3.js"></script>
+<script src="/abc/js/pdfFromHTML.js"></script>
 </body>
 </html>

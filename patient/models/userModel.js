@@ -23,14 +23,50 @@ module.exports= {
 			callback(results);
 		});
 	},
+	getById_app: function(id, callback){
+		var sql = "select * from appointmenttable where d_id='"+id+"'";
+		db.getResults(sql, function(results){
+			callback(results);
+		});
+	},
+	getById_consult: function(id, callback){
+		var sql = "select * from consulting where p_id='"+id+"'";
+		db.getResults(sql, function(results){
+			callback(results);
+		});
+	},
+	getById_payment: function(id, callback){
+		var sql = "select * from patient_payment where p_id='"+id+"'";
+		db.getResults(sql, function(results){
+			callback(results);
+		});
+	},
 	getAll_medicine: function(callback){
 		var sql = "select * from medicine";
 		db.getResults(sql, function(results){
 			callback(results);
 		});
 	},
-	getAll_job: function(callback){
-		var sql = "select * from job";
+	getAll_doctor: function(callback){
+		var sql = "SELECT * from doctor_table INNER JOIN users ON doctor_table.user_id=users.user_id ";
+		db.getResults(sql, function(results){
+			callback(results);
+		});
+	},
+	getAll_blog: function(callback){
+		var sql = "SELECT * from blog INNER JOIN users ON blog.user_id=users.user_id ";
+		db.getResults(sql, function(results){
+			callback(results);
+		});
+	},
+	search_doctor: function(search , callback){
+		var sql = "SELECT * from doctor_table INNER JOIN users ON doctor_table.user_id=users.user_id  where doctor_table.d_department LIKE '%"+search+"%' or users.fullname LIKE '%"+search+"%' ";
+		db.getResults(sql, function(results){
+			callback(results);
+		});
+	},
+	search_medicine: function(search , callback){
+		var sql = "SELECT * from medicine  where name LIKE '%"+search+"%' or price LIKE '%"+search+"%' ";
 		db.getResults(sql, function(results){
 			callback(results);
 		});
@@ -62,6 +98,40 @@ module.exports= {
 			});
 			
 		});
+	},
+	insert_consult: function(con, callback){
+		department = con.department;		 	
+		payment_status = 'due';
+		time = con.time;
+		date = con.date;
+		status = '0';
+		d_id = con.d_id;
+	 	p_id = con.p_id;
+		var sql = "INSERT INTO consulting (department,payment_status,time,date,status,d_id,p_id) VALUES ('"+department+"', '"+payment_status+"', '"+time+"', '"+date+"', '"+status+"','"+d_id+"','"+p_id+"')";
+		db.getResults(sql, function(results1){
+            console.log("db.getResults -> results", results1);
+			
+			callback(results1);
+		});
+	},
+	insert_payment: function(payment, callback){
+		gateway = payment.gateway;		 	
+		payment_status = payment.payment_status;
+		payment_date = payment.payment_date;
+		d_id = payment.d_id;
+	 	p_id = payment.p_id;
+		 amount = '500';
+		 payment_status_comsulting = 'Paid';
+		var sql = "INSERT INTO patient_payment (amount,gateway,payment_date,payment_status,p_id,d_id) VALUES ('"+amount+"', '"+gateway+"', '"+payment_date+"', '"+payment_status+"', '"+p_id+"','"+d_id+"')";
+		db.getResults(sql, function(results1){
+			//callback(results1);
+
+		});
+
+		var sql = "update consulting SET payment_status = '"+payment_status_comsulting+"' WHERE p_id='"+p_id+"'";
+		db.getResults(sql, function(results){
+		callback(results);
+});
 	},
 	update_user:function(user, callback){
 		id = user.id;

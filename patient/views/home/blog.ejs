@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 
 <head>
   <meta charset="utf-8">
-  <title>E-Health Care</title>
+  <title>Medic | Medical HTML Template</title>
 
   
   <!-- mobile responsive meta -->
@@ -11,8 +11,6 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   
   <!-- Slick Carousel -->
-  <link rel="stylesheet" href="/abc/css/bootstrap.min.css">
-
   <link rel="stylesheet" href="/abc/plugins/slick/slick.css">
   <link rel="stylesheet" href="/abc/plugins/slick/slick-theme.css">
   <!-- FancyBox -->
@@ -20,7 +18,6 @@
   
   <!-- Stylesheets -->
   <link href="/abc/css/style.css" rel="stylesheet">
-  <link href="/abc/css/consult.css" rel="stylesheet">
   
   <!--Favicon-->
   <link rel="shortcut icon" href="/abc/img/favicon.ico" type="image/x-icon">
@@ -37,20 +34,44 @@
 
   
 
-<!--Header Upper-->
-<section class="header-uper">
+<!--header top-->
+<div class="header-top">
       <div class="container clearfix">
-            <div class="logo">
-                  <figure>
-                        <a href="index.html">
-                              <img src="/abc/img/logo.png" alt="" width="130">
-                        </a>
-                  </figure>
+            <div class="top-left">
+                  <h6>Opening Hours : Saturday to Tuesday - 8am to 10pm</h6>
             </div>
-       
+            <div class="top-right">
+                  <ul class="social-links">
+                        <li>
+                              <a href="#">
+                                    <i class="fa fa-facebook" aria-hidden="true"></i>
+                              </a>
+                        </li>
+                        <li>
+                              <a href="#">
+                                    <i class="fa fa-twitter" aria-hidden="true"></i>
+                              </a>
+                        </li>
+                        <li>
+                              <a href="#">
+                                    <i class="fa fa-google-plus" aria-hidden="true"></i>
+                              </a>
+                        </li>
+                        <li>
+                              <a href="#">
+                                    <i class="fa fa-instagram" aria-hidden="true"></i>
+                              </a>
+                        </li>
+                        <li>
+                              <a href="#">
+                                    <i class="fa fa-pinterest-p" aria-hidden="true"></i>
+                              </a>
+                        </li>
+                  </ul>
+            </div>
       </div>
-</section>
-<!--Header Upper-->
+</div>
+<!--header top-->
 
 
 <!--Main Header-->
@@ -68,43 +89,43 @@
             </div>
             <!-- Collect the nav links, forms, and other content for toggling -->
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-              <ul class="nav navbar-nav">
-                <li class="active">
-                  <a href="/home">Home</a>
-            </li>
-           
-            <li>
-                  <a href="/home/doctors">Doctors</a>
-            </li>
-            <li>
-                  <a href="/home/consult">Consult</a>
-            </li>
-            <li>
-                  <a href="/home/appointment">Appointment</a>
-            </li>
-            <li>
-                  <a href="/home/blog">Blog</a>
-            </li>
-            <li>
-                  <a href="/pharmacy">Pharmacy</a>
-            </li>
-            <li>
-                  <a href="#">Diagnostics</a>
-            </li>
-            <li>
-                <a href="#">Service</a>
-            </li>
-           
-            <li>
-                <a href="#">About</a>
-            </li>
-         
-            <li>
-                  <a href="#">Contact</a>
-            </li>
-      
-                   
-              </ul>
+                <ul class="nav navbar-nav">
+                    <li class="active">
+                      <a href="/home">Home</a>
+                </li>
+               
+                <li>
+                      <a href="/home/doctors">Doctors</a>
+                </li>
+                <li>
+                      <a href="/home/consult">Consult</a>
+                </li>
+                <li>
+                      <a href="/home/appointment">Appointment</a>
+                </li>
+                <li>
+                      <a href="/home/blog">Blog</a>
+                </li>
+                <li>
+                      <a href="/pharmacy">Pharmacy</a>
+                </li>
+                <li>
+                      <a href="#">Diagnostics</a>
+                </li>
+                <li>
+                    <a href="#">Service</a>
+                </li>
+               
+                <li>
+                    <a href="#">About</a>
+                </li>
+             
+                <li>
+                      <a href="#">Contact</a>
+                </li>
+          
+                       
+                  </ul>
             </div>
             <!-- /.navbar-collapse -->
       </div>
@@ -112,55 +133,95 @@
 </nav>
 <!--End Main Header -->
 
-
-
-<!-- doctors -->
-<div class="doctors">
-    <div class="card" >
-        <div class="img">
-            <img class="card-img-top" src="/abc/img/doctor2.jpg" alt="Card image cap">
+<!--Page Title-->
+<section class="page-title text-center" style="background-image:url(/abc/img/background/3.jpg);">
+    <div class="container">
+        <div class="title-text">
+            <h1>Blog</h1>
+            <ul class="title-menu clearfix">
+                <li>
+                    <a href="index.html">home &nbsp;/</a>
+                </li>
+                <li>Blog</li>
+            </ul>
         </div>
-        <form method="POST">
-            <div class="card-body">
-              <h5 class="card-title">General Physician</h5>
-              <input type="hidden" name="department" value="General Physician">
-              <input type="hidden" name="d_id" value="1">
-              <input type="hidden" name="p_id" value="<%= user_id %>">
-              <input type="date" name="date" >
-              <input type="time" name="time" >
-              <p class="card-text">500 BDT</p>
-              <button type="submit" name="submit" class="btn btn-primary">Consult Now</button>
+    </div>
+</section>
+<!--End Page Title-->
+
+<!-- Contact Section -->
+<section class="blog-section style-four section">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-9 col-sm-12 col-xs-12">
+                <% blog.forEach( function(std){ %>
+
+                <div class="left-side">
+                    <div class="item-holder">
+                        <div class="image-box">
+                            <figure>
+                                <a href="single-blog.html"><img src="/abc/img/blog/<%= std.b_photo%>" alt=""></a>
+                            </figure>
+                        </div>
+                        <div class="content-text">
+                            <a href="single-blog.html"><h6><%= std.tittle%></h6></a>
+                            <span><%= std.fullname%> / <%= std.time%></span>
+                            <p><%= std.details%></p>
+                            <div class="link-btn">
+                            </div>
+                        </div>
+                    </div>
+                   
+                   
+                    
+                </div>
+                <%});%>
             </div>
-        </form>
-      </div>
-    <div class="card" >
-        <div class="img">
-            <img class="card-img-top" src="/abc/img/doctor2.jpg" alt="Card image cap">
-        </div>
-        <form  method="post">
-            <div class="card-body">
-                <h5 class="card-title">Stomach and Digestion</h5>
-                <input type="hidden" name="department" value="Stomach and Digestion">
-                <input type="hidden" name="d_id" value="2">
-                <input type="hidden" name="p_id" value="<%= user_id %>">
-                <input type="date" name="date" >
-              <input type="time" name="time" >
-                <p class="card-text">500 BDT</p>
-                <button type="submit" name="submit" class="btn btn-primary">Consult Now</button>
-           </div>
-        </form>
-      </div>
-</div><!-- end doctors -->
-
-
-
-
-
-
-
-
-
-
+            <div class="col-md-3 col-sm-12 col-xs-12">
+                <div class="right-side">
+                    <div class="text-title">
+                        <h6>Search</h6>
+                    </div>
+                    <div class="search-box">
+                        <form method="post" action="index.html">
+                            <input type="search" name="search" placeholder="Enter to Search" required="">
+                        </form>
+                    </div>
+                    <div class="categorise-menu">
+                        <div class="text-title">
+                            <h6>Categories</h6>
+                        </div>
+                        <ul class="categorise-list">
+                            <li><a href="#">Alumni <span>(20)</span></a></li>
+                            <li><a href="#">Psycology <span>(4)</span></a></li>
+                            <li><a href="#">Sonogram <span>(2)</span></a></li>
+                            <li><a href="#">x-ray <span>(9)</span></a></li>
+                            <li><a href="#">Dental <span>(2)</span></a></li>
+                        </ul>                           
+                    </div>
+                    <div class="tag-list">
+                        <div class="text-title">
+                            <h6>Tags</h6>
+                        </div>
+                        <a href="#">ray</a><a href="#">dental</a>
+                        <a href="#">Clean</a><a href="#">hospitality</a>
+                        <a href="#">Dormamu</a><a href="#">Medical</a><a href="#">hospitality</a>
+                    </div>
+                </div>
+            </div>
+        </div>                
+        <div class="styled-pagination">
+            <ul>
+                <li><a class="prev" href="#"><span class="fa fa-angle-left" aria-hidden="true"></span></a></li>
+                <li><a href="#" class="active">1</a></li>
+                <li><a href="#">2</a></li>
+                <li><a href="#">3</a></li>
+                <li><a class="next" href="#"><span class="fa fa-angle-right" aria-hidden="true"></span></a></li>
+            </ul>
+        </div>                  
+    </div>
+</section>
+<!-- End Contact Section -->
 
 <!--footer-main-->
 <footer class="footer-main">
@@ -172,7 +233,7 @@
             <div class="footer-logo">
               <figure>
                 <a href="index.html">
-                  <img src="/abc/img/logo-2.png" alt="">
+                  <img src="/abc/logo-2.png" alt="">
                 </a>
               </figure>
             </div>
@@ -312,14 +373,6 @@
 <script src="/abc/plugins/jquery-ui.js"></script>
 <script src="/abc/plugins/timePicker.js"></script>
 <script src="/abc/js/script.js"></script>
-
-
-<script>
-    function goBack() {
-      window.history.back();
-    }
-    </script>
 </body>
 
 </html>
-

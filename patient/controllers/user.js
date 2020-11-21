@@ -38,13 +38,36 @@ router.get('/profile/:id', (req, res)=>{
 				p_blood_p: results[0].p_blood_p,
 				p_cal_in: results[0].p_cal_in
 			}
-			//console.log(results)
-			res.render('user/profile', {p_info: p_info , h_info: h_info});
+
+			userModel.getById_consult(req.params.id, function(results3){
+				userModel.getById_payment(req.params.id, function(results4){
+					res.render('user/profile', {p_info : p_info , h_info : h_info, consult_info : results3 , payment_info : results4});
+				});
+			});
 		});
 	});
 });
 
 
+router.get('/payment/:p_id/:d_id', (req, res)=>{
+	var p_id = req.params.p_id;
+	var d_id = req.params.d_id;
+	res.render('user/payment' , { p_id : p_id ,  d_id : d_id} )
+});
+
+router.post('/payment/:p_id/:d_id', (req, res)=>{
+	
+	var payment ={
+		p_id : req.params.p_id,
+		d_id : req.params.d_id,
+		gateway : req.body.gateway,
+		payment_date : req.body.payment_date,
+		payment_status : req.body.payment_status
+	}
+	userModel.insert_payment(payment, function(results){
+		res.redirect('/home/');
+	});
+});
 
 router.get('/edit_info/:id', (req, res)=>{
 	
@@ -114,6 +137,20 @@ router.post('/edit_info/:id'
 					res.redirect('/home/');
 				});
 			}
+});
+
+
+
+router.post('/search_doctor', (req, res)=>{
+	var search = req.body.search;
+    console.log("search", search)
+	userModel.search_doctor(search, function(results){
+        console.log("userModel.search_doctor -> results", results)
+		res.json({
+            results: results
+		}); 
+		//res.render("home/doctors2" ,{results : results})
+	});
 });
 
 router.get('/delete/:id', (req, res)=>{

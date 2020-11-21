@@ -59,11 +59,11 @@
           <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                 <ul class=" navbar-nav">
                       <li class="active">
-                            <a onclick="goBack()">Home</a>
+                            <a href="/home">Home</a>
                       </li>
                      
                       <li>
-                            <a href="team.html">Team</a>
+                            <a href="/home/doctors">Doctors</a>
                       </li>
                       <li>
                             <a href="/home/appointment">Appointment</a>
@@ -138,12 +138,14 @@
                         <a href="./index.html"><img src="img/logo.png" alt=""></a>
                     </div>
                 </div>
-                <div class="col-xl-3 col-lg-7 search">
-                    <input class="form-control" type="text">
+                <form>
+                  <div class="col-xl-3 col-lg-7 search">
+                    <input class="form-control" type="text" placeholder="Search Doctor" id="search" type="text">
                     <div class="link-btn">
-                        <a href="" class="btn-style-one">Search</a>
+                        <button id="ajaxSearch" type="submit" class="btn-style-one">Search</button>
                     </div>
-                </div>
+            </div>
+                </form>
                 <div class="col-lg-3">
                     <div class="header__right">
                        
@@ -168,6 +170,36 @@
 
    
 
+  <section class="show" style="display: none;">
+    <div class="container" >      
+        <div class="row property__gallery px-3">
+
+                <div class="col-md-3 mt-3 product__item" style="display: none;">
+                    <div class="product__item__pic set-bg">
+                        <div class="label new">New</div>
+                        <ul class="product__hover">
+                            <li><img src="/abc/img/napa.jpg" alt=""></li>
+                            <li><a href="#"><span class="icon_heart_alt"></span></a></li>
+                            <li><a href="#"><span class="icon_bag_alt"></span></a></li>
+                        </ul>
+                    </div>
+                    <div class="product__item__text">
+                        <h6><a href="#"><span id="name"></span></a></h6>
+                        <div class="rating">
+                            <i class="fa fa-star"></i>
+                            <i class="fa fa-star"></i>
+                            <i class="fa fa-star"></i>
+                            <i class="fa fa-star"></i>
+                            <i class="fa fa-star"></i>
+                        </div>
+						          <div class="product__price">$ <span id="price"></span></div>
+					            </div>
+                  </div>
+                 
+            
+        </div>
+    </div>
+  </section>
 <!-- Product Section Begin -->
 <section class="product spad">
     <div class="container">
@@ -188,7 +220,7 @@
                 </ul>
             </div>
         </div>
-        <div class="row property__gallery px-3">
+        <div class="row property__gallery px-3 dshow">
 			<% medicine.forEach( function(std){ %>
 
                 <div class="col-md-3 mt-3 product__item" >
@@ -212,9 +244,7 @@
 						<div class="product__price">$ <%= std.price %></div>
 					</div>
                 </div>
-						<%
-			}); 
-		%>
+						<% }); %>
                  
             
         </div>
@@ -395,6 +425,38 @@
     window.history.back();
   }
   </script>
+
+  
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script>
+    $(document).ready(function(){
+        $("#ajaxSearch").click((e) => {
+            e.preventDefault();
+            var search = $("#search").val();
+            $(this).closest('myTable').remove();
+            $.ajax({
+                url: "/pharmacy/search_medicine",
+                data: { search: search },
+                method: "POST",
+                contentType: "application/x-www-form-urlencoded",
+                success: function(data){
+                    var results = data.results;
+                    console.log("$ -> results", results[0].name)
+                    document.querySelector('.dshow').style.display = "none";
+                    document.querySelector('.product__item').style.display = "flex";
+                    document.querySelector('.show').style.display = "flex";
+                    $("#name").html(results[0].name);
+                    $("#price").html(results[0].price);
+                    $("#image").html(results[0].image);
+                }, error: function(err) {
+                    alert(err);
+                }
+            });
+            
+            
+        });
+    });
+</script>
 </body>
 
 </html>

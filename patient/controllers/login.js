@@ -23,6 +23,7 @@ router.post('/', (req, res)=>{
 
 			if(status[0].type == "user"){
 				res.cookie('uname', status[0].fullname);
+				res.cookie('user_id', status[0].user_id);
 
 			var user = {
 				uname: req.cookies['uname'],
@@ -30,7 +31,7 @@ router.post('/', (req, res)=>{
 				fullname : status[0].fullname
 			}
 
-				res.render('home/index2', {user : user});
+				res.redirect('/home/');
 
 			}
 

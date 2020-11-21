@@ -9,6 +9,17 @@
     width: 1040px;
 }
 .card-body{
+    margin-bottom: 50px;
     margin-left: 20px;
     width: 900px;
+}
+
+.search {
+    padding-top: 10px;
+    display: flex;
+    margin-left: 180px;
+}
+.search input {
+    width: 633px;
+    height: 44px;
 }

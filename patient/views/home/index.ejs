@@ -39,7 +39,7 @@
       <div class="container clearfix">
             <div class="logo">
                   <figure>
-                        <a href="index.html">
+                        <a href="#">
                               <img src="/abc/img/logo.png" alt="" width="130">
                         </a>
                   </figure>
@@ -53,7 +53,7 @@
                               <strong>Email</strong>
                               <br>
                               <a href="#">
-                                    <span>info@medic.com</span>
+                                    <span>info@ehealthcare.com</span>
                               </a>
                         </li>
                         <li class="item">
@@ -66,7 +66,14 @@
                         </li>
                   </ul>
                   <div class="link-btn">
+                      <% if(uname == null){%>
                         <a href="/login" class="btn-style-one">Login/Register</a>
+                        <%}
+                        else{%>
+                            <a href="/user/profile/<%=user_id %>" style="margin-right: 10px;"> <i class="fa fa-user" style="margin-right: 5px; color: black; font-size: 24px;"></i><%=uname %></a>
+                            <a href="/logout"><i class="fa fa-sign-out" style="margin-right: 5px; font-size:24px; color: black;"></i>Logout</a>
+    
+                            <%}%>
                   </div>
             </div>
       </div>
@@ -89,40 +96,41 @@
             </div>
             <!-- Collect the nav links, forms, and other content for toggling -->
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-                  <ul class="nav navbar-nav">
-                        <li class="active">
-                              <a href="#">Home</a>
-                        </li>
-                       
-                        <li>
-                              <a href="/home/doctors">Doctors</a>
-                        </li>
-                        <li>
-                              <a href="/home/consult">Consult</a>
-                        </li>
-                        <li>
-                              <a href="/home/appointment">Appointment</a>
-                        </li>
-                        <li>
-                              <a href="#">Blog</a>
-                        </li>
-                        <li>
-                              <a href="/pharmacy">Pharmacy</a>
-                        </li>
-                        <li>
-                              <a href="#">Diagnostics</a>
-                        </li>
-                        <li>
-                            <a href="service.html">Service</a>
-                        </li>
-                         
-                        <li>
-                            <a href="#">About</a>
-                        </li>
-                     
-                        <li>
-                              <a href="#">Contact</a>
-                        </li>
+                <ul class="nav navbar-nav">
+                    <li class="active">
+                      <a href="#">Home</a>
+                </li>
+               
+                <li>
+                      <a href="/home/doctors">Doctors</a>
+                </li>
+                <li>
+                      <a href="/home/consult">Consult</a>
+                </li>
+                <li>
+                      <a href="/home/appointment">Appointment</a>
+                </li>
+                <li>
+                      <a href="/home/blog">Blog</a>
+                </li>
+                <li>
+                      <a href="/pharmacy">Pharmacy</a>
+                </li>
+                <li>
+                      <a href="#">Diagnostics</a>
+                </li>
+                <li>
+                    <a href="#">Service</a>
+                </li>
+               
+                <li>
+                    <a href="#">About</a>
+                </li>
+             
+                <li>
+                      <a href="#">Contact</a>
+                </li>
+          
                        
                   </ul>
             </div>

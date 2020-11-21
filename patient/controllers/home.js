@@ -11,7 +11,7 @@ router.get('*',  (req, res, next)=>{
 }); 
 
 router.get('/', (req, res)=>{
-		res.render('home/index', {uname: req.cookies['uname']});
+		res.render('home/index', {uname: req.cookies['uname'] , user_id: req.cookies['user_id']});
 	});
 /* router.get('/user', (req, res)=>{
 	var user = {
@@ -22,6 +22,15 @@ router.get('/', (req, res)=>{
 
 
 
+router.get('/blog', (req, res)=>{
+	userModel.getAll_blog(function(results){
+
+		res.render('home/blog' , {uname: req.cookies['uname'] , blog : results});
+
+	});
+
+
+})
 router.get('/appointment', (req, res)=>{
 
 		res.render('home/appointment' , {uname: req.cookies['uname']});
@@ -39,12 +48,41 @@ router.post('/appointment', (req, res)=>{
 })
 router.get('/doctors', (req, res)=>{
 
-	res.render('home/doctors' , {uname: req.cookies['uname']});
+	userModel.getAll_doctor(function(results){
+		var d_id = results[0].d_id;
+        //console.log("userModel.getAll_doctor -> d_id", d_id)
+	userModel.getById_app(d_id , function(results1){
+		
+		//console.log(results1[1].day)
+		res.render('home/doctors' , {uname: req.cookies['uname'],doctor: results,app: results1});
+	});
+	});
+
 
 })
 router.get('/consult', (req, res)=>{
 
-	res.render('home/consult' , {uname: req.cookies['uname']});
+	res.render('home/consult' , {uname: req.cookies['uname'] , user_id : req.cookies['user_id']});
+
+})
+
+router.post('/consult', (req, res)=>{
+	var con={
+		department : req.body.department,
+	 	d_id : req.body.d_id,
+	 	p_id : req.body.p_id,
+	 	date : req.body.date,
+	 	time : req.body.time
+	}
+    console.log("con", con)
+	
+	userModel.insert_consult(con , function(results){
+    console.log("userModel.insert_consult -> results", results)
+
+		res.redirect('/home/');
+
+	});
+
 
 })
 

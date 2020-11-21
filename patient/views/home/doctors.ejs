@@ -47,7 +47,16 @@
                         </a>
                   </figure>
             </div>
-       
+
+            <form>
+              <div class="col-xl-3 col-lg-7 search">
+                <input class="form-control" type="text" placeholder="Search Doctor" id="search" type="text">
+                <div class="link-btn">
+                    <button id="ajaxSearch" type="submit" class="btn-style-one">Search</button>
+                </div>
+        </div>
+            </form>
+          
       </div>
 </section>
 <!--Header Upper-->
@@ -68,42 +77,43 @@
             </div>
             <!-- Collect the nav links, forms, and other content for toggling -->
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-                  <ul class="nav navbar-nav">
-                        <li class="active">
-                              <a onclick="goBack()">Home</a>
-                        </li>
-                       
-                        <li>
-                              <a href="#">Doctors</a>
-                        </li>
-                        <li>
-                              <a href="/home/consult">Consult</a>
-                        </li>
-                        <li>
-                              <a href="/home/appointment">Appointment</a>
-                        </li>
-                        <li>
-                              <a href="#">Blog</a>
-                        </li>
-                        <li>
-                              <a href="/pharmacy">Pharmacy</a>
-                        </li>
-                        <li>
-                              <a href="#">Diagnostics</a>
-                        </li>
-                        <li>
-                            <a href="#">Service</a>
-                        </li>
-                       
-                        <li>
-                            <a href="#">About</a>
-                        </li>
-                     
-                        <li>
-                              <a href="#">Contact</a>
-                        </li>
-                       
-                  </ul>
+              <ul class="nav navbar-nav">
+                <li class="active">
+                  <a href="/home">Home</a>
+            </li>
+           
+            <li>
+                  <a href="/home/doctors">Doctors</a>
+            </li>
+            <li>
+                  <a href="/home/consult">Consult</a>
+            </li>
+            <li>
+                  <a href="/home/appointment">Appointment</a>
+            </li>
+            <li>
+                  <a href="/home/blog">Blog</a>
+            </li>
+            <li>
+                  <a href="/pharmacy">Pharmacy</a>
+            </li>
+            <li>
+                  <a href="#">Diagnostics</a>
+            </li>
+            <li>
+                <a href="#">Service</a>
+            </li>
+           
+            <li>
+                <a href="#">About</a>
+            </li>
+         
+            <li>
+                  <a href="#">Contact</a>
+            </li>
+      
+                   
+              </ul>
             </div>
             <!-- /.navbar-collapse -->
       </div>
@@ -112,18 +122,17 @@
 <!--End Main Header -->
 
 
-
-<!-- doctors -->
-<div class="doctors">
+  <div class="d2" style="display: none; margin-top: 50px; margin-left: 50px; margin-bottom: 50px;">
     <div class="card" >
         <div class="img">
+
             <img class="card-img" src="/abc/img/doctor2.jpg" alt="Card image cap">
         </div>
         <div class="card-body">
-          <h5 class="card-title">Dr. john</h5>
-          <p class="card-text">MBBS,FCPS</p>
-          <p class="card-text">General Physician</p>
-          <p class="card-text">Fee : 100</p>
+          <h5 class="card-title"><span id="doctor_name"></span></h5>
+          <p class="card-text">  <span id="doctor_qualification"></span></p>
+          <p class="card-text">  <span id="doctor_dep"></span></p>
+          <p class="card-text">Fee :  <span id="doctor_fee"></span></p>
           <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal2">
             View More
           </button>
@@ -131,8 +140,76 @@
             Appointment Schedule
           </button>
         </div>
+       
+
+      </div>
+    </div>
+  
+
+
+
+
+
+
+
+
+
+
+
+<!-- doctors -->
+<% doctor.forEach( function(std,i){ %>
+<div class="doctors">
+
+    <div class="card" >
+        <div class="img">
+
+            <img class="card-img" src="/abc/img/<%= std.photo %>" alt="Card image cap">
+        </div>
+        <div class="card-body">
+          <h5 class="card-title"><%= std.fullname %></h5>
+          <p class="card-text"><%= std.d_qualification %></p>
+          <p class="card-text"><%= std.d_department %></p>
+          <p class="card-text">Fee : <%= std.d_fee %></p>
+          <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal2">
+            View More
+          </button>
+          <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal">
+            Appointment Schedule
+          </button>
+        </div>
+       
+
       </div>
 </div><!-- end doctors -->
+
+<% }); %>
+
+<% doctor.forEach( function(std,i){ %>
+
+<div class="modal" id="myModal2">
+  <div class="modal-dialog">
+    <div class="modal-content">
+    
+      <!-- Modal Header -->
+      <div class="modal-header">
+        <h4 class="modal-title">About Doctor</h4>
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+      </div>
+      
+      <!-- Modal body -->
+      <div class="modal-body">
+          <p><%= std.d_about %></p>
+      </div>
+      
+      <!-- Modal footer -->
+      <div class="modal-footer">
+        <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+<% }); %>
+
 
 <!-- The Modal -->
 <div class="modal" id="myModal">
@@ -156,16 +233,15 @@
                   </tr>
                 </thead>
                 <tbody>
+                  <% app.forEach( function(std,i){ %>
+
                   <tr>
-                    <td>Sunday</td>
-                    <td>10:00 AM</td>
-                    <td>02:00 PM</td>
+                    <td><%= std.day %></td>
+                    <td><%= std.starttime %></td>
+                    <td><%= std.endtime %></td>
                   </tr>
-                  <tr>
-                    <td>Monday</td>
-                    <td>10:00 AM</td>
-                    <td>02:00 PM</td>
-                  </tr>
+                  <% }); %>
+
                 </tbody>
               </table>
         </div>
@@ -178,19 +254,19 @@
       </div>
     </div>
 </div>
-<div class="modal" id="myModal2">
+<div class="modal" id="myModal3">
     <div class="modal-dialog">
       <div class="modal-content">
       
         <!-- Modal Header -->
         <div class="modal-header">
-          <h4 class="modal-title">About Doctor</h4>
+          <h4 class="modal-title">Appointment Schedule</h4>
           <button type="button" class="close" data-dismiss="modal">&times;</button>
         </div>
         
         <!-- Modal body -->
         <div class="modal-body">
-            <p>I'm General Physician Speacilist With 5 year experiencs </p>
+            
         </div>
         
         <!-- Modal footer -->
@@ -201,9 +277,6 @@
       </div>
     </div>
 </div>
-
-
-
 
 
 
@@ -369,6 +442,40 @@
       window.history.back();
     }
     </script>
+
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script>
+    $(document).ready(function(){
+        $("#ajaxSearch").click((e) => {
+            e.preventDefault();
+            var search = $("#search").val();
+            $(this).closest('myTable').remove();
+            $.ajax({
+                url: "/user/search_doctor",
+                data: { search: search },
+                method: "POST",
+                contentType: "application/x-www-form-urlencoded",
+                success: function(data){
+                    var results = data.results;
+                    console.log("$ -> results", results.length)
+                    document.querySelector('.doctors').style.display = "none";
+                    document.querySelector('.d2').style.display = "flex";
+                    $("#doctor_name").html(results[0].fullname);
+                    $("#doctor_qualification").html(results[0].d_qualification);
+                    $("#doctor_dep").html(results[0].d_department);
+                    $("#doctor_fee").html(results[0].d_fee);
+                }, error: function(err) {
+                    alert(err);
+                }
+            });
+            
+            
+        });
+    });
+</script>
+
+
 </body>
 
 </html>

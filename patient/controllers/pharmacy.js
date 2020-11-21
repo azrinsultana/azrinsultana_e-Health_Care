@@ -12,7 +12,15 @@ router.get('/', (req, res)=>{
 
 router.post('/', (req, res)=>{
 
-
 }); 
+router.post('/search_medicine', (req, res)=>{
+	var search = req.body.search;
+	userModel.search_medicine(search, function(results){
+        console.log("userModel.search_doctor -> results", results)
+		res.json({
+            results: results
+		}); 
+	});
+});
 
 module.exports = router;
