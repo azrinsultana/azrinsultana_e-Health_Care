@@ -37,6 +37,15 @@ router.post('/appointment', (req, res)=>{
 		res.render('user/profile',{ap_date:date,dep_name:dep_name,doc_name:doc_name});
 
 })
+router.get('/doctors', (req, res)=>{
 
+	res.render('home/doctors' , {uname: req.cookies['uname']});
+
+})
+router.get('/consult', (req, res)=>{
+
+	res.render('home/consult' , {uname: req.cookies['uname']});
+
+})
 
 module.exports = router;

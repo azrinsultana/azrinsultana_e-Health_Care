@@ -1,0 +1,14 @@
+.doctors{
+    margin-top: 50px;
+    margin-bottom: 50px;
+    margin-left: 50px;
+}
+
+.card{
+    display: flex;
+    width: 1040px;
+}
+.card-body{
+    margin-left: 20px;
+    width: 900px;
+}
