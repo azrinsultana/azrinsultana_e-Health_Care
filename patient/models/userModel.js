@@ -11,6 +11,16 @@ module.exports= {
 			}
 		});
 	},
+	check_email: function(email, callback){
+		var sql = "select * from users where email='"+email+"'";
+		db.getResults(sql, function(results){
+			if(results.length >0 ){
+				callback(true);
+			}else{
+				callback(false);
+			}
+		});
+	},
 	getById_user: function(id, callback){
 		var sql = "select * from users where user_id='"+id+"'";
 		db.getResults(sql, function(results){

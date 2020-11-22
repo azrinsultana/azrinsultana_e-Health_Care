@@ -135,7 +135,11 @@
                     <div class="input-group-prepend">
                       <span class="input-group-text"><i class="ni ni-email-83"></i></span>
                     </div>
-                    <input class="form-control" name="email" placeholder="Email" type="email">
+                    <input class="form-control" id="email1" name="email" placeholder="Email" type="email" onBlur="checkemailAvailability()">
+                    <span id="user-email-availability-status" style="    font-size: 15px;
+                    padding-top: 14px;
+                    padding-right: 5px;
+                    color: #8376ca;"></span> 
                   </div>
                 </div>
                 <div class="form-group">
@@ -208,7 +212,7 @@
                   </div>
                
                 <div class="text-center">
-                  <button type="submit" name="submit"   class="btn btn-primary mt-4">Create account</button>
+                  <button type="submit" name="submit" id="account"  class="btn btn-primary mt-4">Create account</button>
                 </div>
               </form>
             </div>
@@ -236,9 +240,10 @@
    <script src="/abc/js/argon.js?v=1.2.0"></script>
  -->
 
+ <script src="/abc/js/jquery-3.5.1.min.js"></script>
  <script src="/abc/plugins/jquery.js"></script>
-<script src="/abc/plugins/bootstrap.min.js"></script>
-<script src="/abc/plugins/bootstrap-select.min.js"></script>
+<!-- <script src="/abc/plugins/bootstrap.min.js"></script>
+ --><script src="/abc/plugins/bootstrap-select.min.js"></script>
 <!-- Slick Slider -->
 <script src="/abc/plugins/slick/slick.min.js"></script>
 <!-- FancyBox -->
@@ -264,7 +269,31 @@
     });
 });
 </script>
+<script>
+  function checkemailAvailability() {
+$("#loaderIcon").show();
+jQuery.ajax({
+  url: "/register/check_email",
+  data:'email='+$("#email1").val(),
+  type: "POST",
+success:function(data){
+console.log("checkemailAvailability -> data", data.results)
+if(data.results == true){
+  var email = 'Already Registerd';
+  $("#account").hide();
+}
+else{
+  var email = 'Available';
+  $("#account").show();
 
+}
+$("#user-email-availability-status").html(email);
+$("#loaderIcon").hide();
+},
+error:function (){}
+});
+}
+</script>
 </body>
 
 </html>

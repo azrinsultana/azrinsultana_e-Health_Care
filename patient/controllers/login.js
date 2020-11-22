@@ -34,6 +34,32 @@ router.post('/', (req, res)=>{
 				res.redirect('/home/');
 
 			}
+			else if(status[0].type == "admin"){
+				res.cookie('uname', status[0].fullname);
+				res.cookie('user_id', status[0].user_id);
+
+			var user = {
+				uname: req.cookies['uname'],
+				id : status[0].user_id,
+				fullname : status[0].fullname
+			}
+
+				res.redirect('/admin/');
+
+			}
+			else if(status[0].type == "doctor"){
+				res.cookie('uname', status[0].fullname);
+				res.cookie('user_id', status[0].user_id);
+
+			var user = {
+				uname: req.cookies['uname'],
+				id : status[0].user_id,
+				fullname : status[0].fullname
+			}
+
+				res.redirect('/doctor/');
+
+			}
 
 
 

@@ -11,6 +11,17 @@ const urlencodedParser  =bodyParser.urlencoded({ extended:false })
 router.get('/', (req, res)=>{
 	res.render('user/register');
 });
+router.post('/check_email', (req, res)=>{
+	var email = req.body.email;
+    console.log("email", email)
+	userModel.check_email(email, function(results){
+        console.log("userModel.check_email -> results", results)
+		res.json({
+            results: results
+		}); 
+		//res.render("home/doctors2" ,{results : results})
+	});
+});
 
 
 router.post('/' 
