@@ -26,16 +26,18 @@ router.get('/blog', (req, res)=>{
 	userModel.getAll_blog(function(results){
 
 		res.render('home/blog' , {uname: req.cookies['uname'] , blog : results});
-
 	});
-
-
 })
+
+
+
+
 router.get('/appointment', (req, res)=>{
 
 		res.render('home/appointment' , {uname: req.cookies['uname']});
 
 })
+
 router.post('/appointment', (req, res)=>{
 
 		var dep_name=req.body.dep_name;

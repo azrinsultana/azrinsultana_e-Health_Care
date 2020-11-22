@@ -10,6 +10,7 @@ const { body, validationResult } = require('express-validator');
 const login				= require('./controllers/login');
 const register			= require('./controllers/register');
 const pharmacy			= require('./controllers/pharmacy');
+const diagnostic		= require('./controllers/diagnostic');
 const logout			= require('./controllers/logout');
 const home				= require('./controllers/home');
 const user				= require('./controllers/user');
@@ -31,6 +32,7 @@ app.use(exSession({secret: 'secret value', saveUninitialized: true, resave: fals
 app.use('/login', login);
 app.use('/register', register);
 app.use('/pharmacy', pharmacy);
+app.use('/diagnostic', diagnostic);
 app.use('/home', home);
 app.use('/logout', logout);
 app.use('/user', user);

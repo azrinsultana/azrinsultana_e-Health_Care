@@ -47,6 +47,18 @@ module.exports= {
 			callback(results);
 		});
 	},
+	getAll_diagnostic: function(callback){
+		var sql = "select * from diagnostic";
+		db.getResults(sql, function(results){
+			callback(results);
+		});
+	},
+	getAll_checkups: function(callback){
+		var sql = "select * from checkups";
+		db.getResults(sql, function(results){
+			callback(results);
+		});
+	},
 	getAll_doctor: function(callback){
 		var sql = "SELECT * from doctor_table INNER JOIN users ON doctor_table.user_id=users.user_id ";
 		db.getResults(sql, function(results){
