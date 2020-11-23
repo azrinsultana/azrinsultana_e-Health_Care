@@ -34,6 +34,18 @@ module.exports = {
 		});
 
 	},
+	getResults_e: function (sql, callback){
+		getConnection(function(connection){
+			connection.query(sql , function (error, results) {
+				callback(error , results);
+			});
+			
+			connection.end(function(err) {
+			  console.log('connection end...');
+			});		
+		});
+
+	},
 	execute: function (sql, callback){
 		getConnection(function(connection){
 			connection.query(sql , function (error, status) {

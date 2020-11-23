@@ -23,6 +23,11 @@ const port				= 3000;
 const $  				= require('jquery');
 const path				= require('path');
 
+
+
+const passport						= require('passport')
+const facebookStrategy				= require('passport-facebook').Strategy
+
 //configuration
 app.set('view engine', 'ejs');
 
@@ -44,6 +49,9 @@ app.use('/pharmacy', pharmacy);
 app.use('/diagnostic', diagnostic);
 app.use('/user', user);
 //app.use('/admin', admin);
+app.use(passport.initialize());
+app.use(passport.session());
+
 
 
 
@@ -54,9 +62,24 @@ app.use(fileUpload());
 
 //router
 app.get('/', (req, res)=>{
-	res.send('Welcome');
-    res.redirect('/home');
+    res.render('p_home/index' , {uname  : null});
 });
+
+///////for FaceBook Login////////////
+app.get('/homepage', (req, res)=>{
+	res.cookie('uname', req.user[0].fullname);
+   	res.cookie('user_id', req.user[0].user_id);
+   	res.cookie('user_email', req.user[0].email);
+	   
+    console.log('nayeem------------------------', req.user[0].user_id);
+	//console.log('nayeem--2------------------------', req.user[0]);
+	//res.send('Welcome');
+   	//res.render('home/index',{ user : req.user[0] , uname: req.cookies['uname'] , user_id: req.cookies['user_id']});
+	   
+	   res.redirect('/home');
+});
+
+
 
 //server startup
 app.listen(port, (error)=>{

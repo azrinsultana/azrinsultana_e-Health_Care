@@ -21,8 +21,8 @@ module.exports= {
 			}
 		});
 	},
-	find_fb_id: function(id, callback){
-		var sql = "select * from fb where fb_id='"+id+"'";
+	find_fb_email: function(email, callback){
+		var sql = "select * from users where email='"+email+"'";
 		db.getResults_e(sql, function(err , results){
 			console.log("db.getResults ~ err", err)
             console.log("db.getResults ~ results", results)
@@ -136,13 +136,17 @@ module.exports= {
 		});
 	},
 	insert_fb_user: function(fb_user, callback){
-		fb_id = fb_user.fb_id;		 	
 		email = fb_user.email;
-		var sql = "INSERT INTO fb (fb_id,email) VALUES ('"+fb_id+"', '"+email+"')";
+		fullname = fb_user.fullname;
+		var sql = "INSERT INTO users (fullname, email) VALUES ('"+fullname+"', '"+email+"')";
 		db.getResults(sql, function(results1){
-            console.log("fb -> ", results1);
-			
-			callback(results1);
+			var id = results1.insertId;
+			//callback(results1);
+
+			var sql2 = "INSERT INTO patient_info (user_id) VALUES ('"+id+"')";
+			db.getResults(sql2, function(results){
+				callback(results);
+			});
 		});
 	},
 	insert_consult: function(con, callback){

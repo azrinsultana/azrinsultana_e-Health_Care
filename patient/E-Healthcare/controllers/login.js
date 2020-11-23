@@ -3,6 +3,7 @@ const express 	= require('express');
 const bodyParser = require('body-parser');
 const { check, validationResult } = require('express-validator');
 const userModel = require.main.require('./models/userModel');
+const patient_userModel = require.main.require('./models/patient_userModel');
 const router 	= express.Router();
 const urlencodedParser  =bodyParser.urlencoded({ extended:false })
 
@@ -114,5 +115,83 @@ router.post('/'
 
 	}
 }); 
+
+///////////////////Facebook Login//////////////////
+
+
+
+passport.use(new facebookStrategy({
+	clientID        : "374690143860625",
+    clientSecret    : "8201f44781e3ecfe5228895723a2383d",
+	callbackURL     : "http://localhost:3000/login/facebook/callback",
+	profileFields	: ['id' , 'displayName' , 'name' , 'picture.type(large)' , 'email']
+
+},// facebook will send back the token and profile
+function(token, refreshToken, profile, done) {
+
+    // asynchronous
+    process.nextTick(function() {
+		//console.log(profile.id)
+		console.log("email---------------------", profile.displayName)
+		//console.log("profile", profile.displayName)
+		//var e = profile.email.value;
+		//console.log(e)
+		// find the user in the database based on their facebook id
+	
+
+		patient_userModel.find_fb_email( profile.emails[0].value , function(err , user) {
+		//console.log("1 - user", user)
+		// if there is an error, stop everything and return that
+		// ie an error connecting to the database
+		if (err && user == ''){
+		//console.log("2 - user", user)
+		//console.log("error", err)
+			return done(err);
+		}
+		// if the user is found, then log them in
+		if (user && user !='new_fb') {
+			//console.log("3 - user found")
+			//console.log(user)
+			return done(null, user); // user found, return that user
+		} else if (user == 'new_fb') {
+			// if there is no user found with that facebook id, create them		
+			var fb_user = {
+				email : profile.emails[0].value,
+				fullname : profile.displayName,
+			}	
+			
+			patient_userModel.insert_fb_user(fb_user , function(result){
+				return done(null , fb_user);
+			}) 					
+		}
+
+
+		});
+
+	})
+
+}));
+
+passport.serializeUser(function(user, done) {
+    console.log("user -> 1", user)
+    done(null, user[0].email);
+});
+// used to deserialize the user
+passport.deserializeUser(function(email, done) {
+	console.log("id===",email)
+    patient_userModel.find_fb_email(email, function(err, user) {
+   	//console.log("user - d", user)
+	//console.log("err - d", err)
+        done(err, user);
+    });
+});
+
+router.get('/auth/facebook', passport.authenticate('facebook', { scope : 'email' }));
+
+router.get('/facebook/callback',
+		passport.authenticate('facebook', {
+			successRedirect : '/homepage',
+			failureRedirect : '/login'
+		}));
 
 module.exports = router;
