@@ -46,7 +46,7 @@ router.post('/'
 
 		};
 
-	userModel.validate(user, function(status){
+	patient_userModel.validate(user, function(status){
         console.log("userModel.validate -> status", status)
 		if(status != false){
 

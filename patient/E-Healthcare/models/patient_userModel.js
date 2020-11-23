@@ -1,14 +1,51 @@
 const db = require('./db');
+const bcrypt 						= require('bcrypt');
 
 module.exports= {
 	validate: function(user, callback){
-		var sql = "select * from users where username='"+user.username+"' and password='"+user.password+"'";
-		db.getResults(sql, function(results){
-			if(results.length >0 ){
-				callback(results);
-			}else{
+
+		/* const aFunction = async (password , p) => {
+			// ...
+			if(await bcrypt.compare(password , p)){
+				callback(true);
+			}
+			else{
 				callback(false);
 			}
+		} */
+
+		var sql = "select * from users where username='"+user.username+"'";
+		db.getResults_hash(sql, async function(err , results){
+        console.log("getResults ~ results", results)
+        console.log("results[0].password", results[0].password)
+        console.log("user.password", user.password)
+			try {
+				const isPassword = await bcrypt.compare(user.password, results[0].password);
+				console.log(isPassword); // true
+				if(isPassword){
+					callback(results);
+				}
+				else{
+					callback(false);
+				}
+
+			} catch (error) {
+				console.log(error);
+			}
+			/* if(results.length >0 ){
+				if(aFunction(user.password , results[0].password) ){
+
+                    //console.log("bcrypt.password", bcrypt.compare(user.password , results[0].password) )
+                    console.log("user.password", user.password)
+                    console.log("results.password", results[0].password)
+					callback(results);
+				}
+				else{
+					callback(false);
+				}
+			}else{
+				callback(false);
+			} */
 		});
 	},
 	check_email: function(email, callback){
