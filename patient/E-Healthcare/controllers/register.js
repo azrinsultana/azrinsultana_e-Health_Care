@@ -3,7 +3,7 @@ const fs 						= require('fs');
 //const { param } 					= require('./home');
 const bodyParser 					= require('body-parser');
 const { check, validationResult } 	= require('express-validator');
-const userModel 					= require.main.require('./models/userModel');
+const userModel 					= require.main.require('./models/patient_userModel');
 const router 						= express.Router();
 const bcrypt 						= require('bcrypt');
 //const upload            			= require('express-fileupload');
@@ -39,6 +39,16 @@ router.post('/check_email', (req, res)=>{
     console.log("email", email)
 	userModel.check_email(email, function(results){
         console.log("userModel.check_email -> results", results)
+		res.json({
+            results: results
+		}); 
+		//res.render("home/doctors2" ,{results : results})
+	});
+});
+router.post('/check_username', (req, res)=>{
+	var username = req.body.username;
+    console.log("username", username)
+	userModel.check_username(username, function(results){
 		res.json({
             results: results
 		}); 
@@ -89,41 +99,77 @@ router.post('/'
 	.isLength({min : 1})
 	.isInt().withMessage('Calorie Intake must be Number')	
 ]
-,async (req, res)=>{
-	 const errors = validationResult(req)
-			if(!errors.isEmpty()){
-				//return res.status(422).jsonp(errors.array())
-				const alert = errors.array()
-				res.render('user/register' , {alert});
-			}
-			else{  
-				upload(req,res,function(err) {
-					if(err) {
-						return res.end("Error uploading file.");
-					}
-					res.end("File is uploaded");
-				});
+, (req, res)=>{
+	const errors = validationResult(req)
+		   if(!errors.isEmpty()){
+			   //return res.status(422).jsonp(errors.array())
+			   const alert = errors.array()
+			   res.render('user/register' , {alert});
+		   }
+		   else{  
+			   if(req.files){
+				   var file = req.files.file;
+				   var filename = file.name;
+				   image = filename;
+				   console.log("image", image)
 
-				 var user = {				
-							username: req.body.username,
-							fullname: req.body.fullname,
-							email: req.body.email,
-							password: await bcrypt.hash(req.body.password , 10),
-							contactno: req.body.contactno,
-							p_birth_date: req.body.p_birth_date,
-							p_address: req.body.p_address,
-							p_blood_group: req.body.p_blood_group,
-							p_bmi: req.body.p_bmi,
-							p_weight: req.body.p_weight,
-							p_blood_p: req.body.p_blood_p,
-							p_cal_in: req.body.p_cal_in,
-							photo: req.body.file
-							} 
-				 userModel.insert_user(user, function(status){
-					res.redirect('/login');
-				}); 
-		 	} 
-		
+				   file.mv('./assets/upload/'+filename,async function(err){
+					   if(err){
+						   res.redirect('/register');
+					   }
+					   else{
+						   var user = {				
+							   username: req.body.username,
+							   fullname: req.body.fullname,
+							   email: req.body.email,
+							   password:await  bcrypt.hash(req.body.password , 10),
+							   contactno: req.body.contactno,
+							   p_birth_date: req.body.p_birth_date,
+							   p_address: req.body.p_address,
+							   p_blood_group: req.body.p_blood_group,
+							   p_bmi: req.body.p_bmi,
+							   p_weight: req.body.p_weight,
+							   p_blood_p: req.body.p_blood_p,
+							   p_cal_in: req.body.p_cal_in,
+							   photo: image
+							   } 
+					 userModel.insert_user(user, function(status){
+					   res.redirect('/login');
+				   }); 
+					   }
+				   });
+			   }
+			   else{
+				   res.send("file e to pai na");
+			   }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+		   /* 	upload(req,res,function(err) {
+				   if(err) {
+					   return res.end("Error uploading file.");
+				   }
+				   res.end("File is uploaded");
+			   }); */
+
+				
+			} 
+	   
 
 });
 
@@ -131,4 +177,3 @@ router.post('/'
 
 
 module.exports = router;
-

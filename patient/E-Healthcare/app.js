@@ -4,7 +4,7 @@ const bodyParser 		= require('body-parser');
 const exSession 		= require('express-session');
 const {check,validationResult} = require('express-validator');
 const cookieParser 		= require('cookie-parser');
-const fileUpload 		= require('express-fileupload');
+const upload 		= require('express-fileupload');
 const flash            = require('connect-flash');
 const forgotpassword		= require('./controllers/forgotpassword');
 const home				= require('./controllers/home');
@@ -57,7 +57,7 @@ app.use(passport.session());
 
 app.use('/jquery',express.static(path.join(__dirname+'/node_modules/jquery/dist/')));  
 app.use(express.static(path.join(__dirname+'/public'))); 
-app.use(fileUpload());
+app.use(upload());
 //app.use(exSession({secret: 'secret value', saveUninitialized: true, resave: false}));
 
 //router

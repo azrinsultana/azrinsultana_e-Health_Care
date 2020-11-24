@@ -58,6 +58,16 @@ module.exports= {
 			}
 		});
 	},
+	check_username: function(username, callback){
+		var sql = "select * from users where username='"+username+"'";
+		db.getResults(sql, function(results){
+			if(results.length >0 ){
+				callback(true);
+			}else{
+				callback(false);
+			}
+		});
+	},
 	find_fb_email: function(email, callback){
 		var sql = "select * from users where email='"+email+"'";
 		db.getResults_e(sql, function(err , results){

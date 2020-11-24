@@ -117,7 +117,11 @@
                     <div class="input-group-prepend">
                       <span class="input-group-text"><i class="fa fa-user"></i></span>
                     </div>
-                    <input class="form-control" name="username" placeholder="User Name" type="text">
+                    <input class="form-control" id="username" name="username" placeholder="User Name" type="text" onkeyup="checkusernameAvailability()">
+                    <span id="user-name-availability-status" style="    font-size: 15px;
+                    padding-top: 14px;
+                    padding-right: 5px;
+                    color: #8376ca;"></span> 
                   </div>
 
                   <div class="input-group input-group-merge input-group-alternative mb-3">
@@ -271,6 +275,10 @@
 });
 </script>
 <script>
+var email='';
+var username='';
+
+
   function checkemailAvailability() {
 $("#loaderIcon").show();
 jQuery.ajax({
@@ -280,15 +288,74 @@ jQuery.ajax({
 success:function(data){
 console.log("checkemailAvailability -> data", data.results)
 if(data.results == true){
-  var email = 'Already Registerd';
+   email = 'Already Registerd';
+   if(email == 'Already Registerd' || username == 'Already Registerd'){
   $("#account").hide();
+
 }
-else{
-  var email = 'Available';
+else if(email == 'Available' && username == 'Available'){
   $("#account").show();
 
 }
+  //$("#account").hide();
+}
+else{
+   email = 'Available';
+   if(email == 'Already Registerd' || username == 'Already Registerd'){
+  $("#account").hide();
+
+}
+else if(email == 'Available' && username == 'Available'){
+  $("#account").show();
+
+}
+   //$("#account").show();
+
+}
 $("#user-email-availability-status").html(email);
+$("#loaderIcon").hide();
+},
+error:function (){}
+});
+}
+
+
+
+
+  function checkusernameAvailability() {
+$("#loaderIcon").show();
+jQuery.ajax({
+  url: "/register/check_username",
+  data:'username='+$("#username").val(),
+  type: "POST",
+success:function(data){
+if(data.results == true){
+   username = 'Already Registerd';
+   if(email == 'Already Registerd' || username == 'Already Registerd'){
+  $("#account").hide();
+
+}
+else if(email == 'Available' && username == 'Available'){
+  $("#account").show();
+
+}
+   //$("#account").hide();
+
+}
+else{
+   username = 'Available';
+   if(email == 'Already Registerd' || username == 'Already Registerd'){
+  $("#account").hide();
+
+}
+else if(email == 'Available' && username == 'Available'){
+  $("#account").show();
+
+}
+   //$("#account").show();
+
+}
+$("#user-name-availability-status").html(username);
 $("#loaderIcon").hide();
 },
 error:function (){}
