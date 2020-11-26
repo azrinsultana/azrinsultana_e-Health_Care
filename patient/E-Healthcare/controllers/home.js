@@ -21,7 +21,7 @@ router.get('*',  (req, res, next)=>{
 }); 
 
 router.get('/', (req, res)=>{
-	console.log('nayeem---------->>>>>>>' , req.user)
+	//console.log('nayeem---------->>>>>>>' , req.user)
 		res.render('p_home/index', {uname: req.cookies['uname'] , user_id: req.cookies['user_id']});
 	});
 

@@ -41,7 +41,17 @@ router.get('/profile/:id', (req, res)=>{
 
 			userModel.getById_consult(req.params.id, function(results3){
 				userModel.getById_payment(req.params.id, function(results4){
-					res.render('user/profile', {p_info : p_info , h_info : h_info, consult_info : results3 , payment_info : results4});
+					userModel.getById_test_report(req.params.id, function(results5){
+						res.render('user/profile', 
+						{
+							p_info : p_info , 
+							h_info : h_info, 
+							consult_info : results3, 
+							payment_info : results4, 
+							test_report : results5
+						});
+
+					});
 				});
 			});
 		});
@@ -69,17 +79,58 @@ router.post('/payment/:p_id/:d_id', (req, res)=>{
 	});
 });
 
+router.get('/add_test_report/:user_id', (req, res)=>{
+	var user_id = req.params.user_id;
+	res.render('user/add_test_report' , { user_id : user_id} )
+});
+
+router.post('/add_test_report/:user_id', (req, res)=>{
+	
+	if(req.files){
+		var file = req.files.file;
+		var filename = file.name;
+		image = filename;
+		console.log("image", image)
+
+		file.mv('./assets/upload/'+filename, function(err){
+			if(err){
+				res.redirect('/register');
+			}
+			else{
+				
+				var test_report ={
+					name : req.body.name,
+					user_id : req.body.user_id,
+					tr_photo : image,
+				}
+				userModel.insert_test_report(test_report, function(results){
+					res.redirect('/home/');
+				});
+			}
+		});
+	}
+	else{
+		res.send("file not uploaded");
+	}
+
+
+
+
+	
+});
+
 router.get('/edit_info/:id', (req, res)=>{
 	
 	userModel.getById_user(req.params.id, function(results){
 		var p_info ={
-			email : results[0].email,
+			photo : results[0].photo,
 			password : results[0].password,
 			contactno : results[0].contactno
 		}
 		
 		userModel.getById_patient(req.params.id, function(results){
 			var h_info ={
+				p_birth_date : results[0].p_birth_date,
 				p_address : results[0].p_address,
 				p_bmi: results[0].p_bmi,
 				p_weight: results[0].p_weight,
@@ -94,11 +145,6 @@ router.get('/edit_info/:id', (req, res)=>{
 
 router.post('/edit_info/:id'
  , urlencodedParser,[
-	check('email' , 'Email cannot be Empty')
-	.exists(),
-	check('password' , 'password  must be 8 character')
-	.exists()
-	.isLength({min : 8}),
 	check('contactno' , 'Contact number must be 11 character')
 	.exists()
 	.isLength({min : 11}),
@@ -121,21 +167,43 @@ router.post('/edit_info/:id'
 				
 			}
 			else{ 
-				var user = {
-					id: req.params.id,
-					email : req.body.email,
-					password : req.body.password,
-					contactno : req.body.contactno,
-					p_address : req.body.p_address,
-					p_bmi : req.body.p_bmi,
-					p_weight : req.body.p_weight,
-					p_blood_p : req.body.p_blood_p,
-					p_cal_in : req.body.p_cal_in
+				console.log(req.files);
+				if(req.files){
+					var file = req.files.file;
+					var filename = file.name;
+					image = filename;
+					console.log("image", image)
+ 
+					file.mv('./assets/upload/'+filename, function(err){
+						if(err){
+							res.redirect('/register');
+						}
+						else{
+							
+							var user = {
+								id: req.params.id,
+								contactno : req.body.contactno,
+								p_address : req.body.p_address,
+								p_bmi : req.body.p_bmi,
+								p_weight : req.body.p_weight,
+								p_blood_p : req.body.p_blood_p,
+								p_birth_date : req.body.p_birth_date,
+								p_cal_in : req.body.p_cal_in,
+								photo : image
+							}
+							userModel.update_user(user, function(status){
+								//console.log(status)
+								res.redirect('/home/');
+							});
+						}
+					});
 				}
-				userModel.update_user(user, function(status){
-					//console.log(status)
-					res.redirect('/home/');
-				});
+				else{
+					res.send("file not uploaded");
+				}
+
+
+			
 			}
 });
 

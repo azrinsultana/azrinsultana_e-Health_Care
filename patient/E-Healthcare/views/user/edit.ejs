@@ -10,17 +10,20 @@
 		
 	
 	
-		<form method="post">
+		<form method="post" enctype="multipart/form-data">
 			<fieldset>
 				<legend>Edit Patient Info</legend>
 				<table>
 					<tr>
-						<td>Email</td>
-						<td><input type="email" name="email" value="<%=p_info.email%>"></td>
+ 							<td><img style="width: 200px; height: 200px;" src="/abc/upload/<%=p_info.photo%>"></td>
+					<tr>
+								<td>Birth Date</td>
+							<td><input type="date" name="p_birth_date" value="<%=h_info.p_birth_date%>"></td>
+							</tr>	
 					</tr>
 					<tr>
-						<td>Password</td>
-						<td><input type="text" name="password" value="<%=p_info.password%>"></td>
+						<td>Photo</td>
+						<td><input type="file" name="file" ></td>
 					</tr>
 					<tr>
 						<td>Conatact No</td>
@@ -48,6 +51,7 @@
 					</tr>
 					
 					
+					
 					<tr>
 						<td></td>
 						<td><input type="submit" name="submit" value="Submit"></td>
@@ -57,5 +61,16 @@
 		</form>
 	</div>
 
+	<script>
+		document.getElementById('upload_image').addEventListener("click", function()
+		{ 
+  			document.querySelector('.up_image').style.display = "grid";
+		});
+
+		document.getElementById('no_upload_image').addEventListener("click", function()
+		{ 
+  			document.querySelector('.up_image').style.display = "none";
+  		});
+	</script>
 </body>
 </html>

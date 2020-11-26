@@ -1,5 +1,5 @@
 const express 						= require('express');
-const fs 						= require('fs');
+const fs 							= require('fs');
 //const { param } 					= require('./home');
 const bodyParser 					= require('body-parser');
 const { check, validationResult } 	= require('express-validator');
@@ -7,9 +7,10 @@ const userModel 					= require.main.require('./models/patient_userModel');
 const router 						= express.Router();
 const bcrypt 						= require('bcrypt');
 //const upload            			= require('express-fileupload');
-var multer  =   require('multer');
-var storage =   multer.diskStorage({
-  destination: function (req, file, callback) {
+var multer  						= require('multer');
+var storage 						= multer.diskStorage({
+
+	destination: function (req, file, callback) {
    // callback(null, './uploads');
    var dir = "../uploads";
 
@@ -140,25 +141,8 @@ router.post('/'
 				   });
 			   }
 			   else{
-				   res.send("file e to pai na");
+				   res.send("file not uploaded");
 			   }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 		   /* 	upload(req,res,function(err) {
 				   if(err) {

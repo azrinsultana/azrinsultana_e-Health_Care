@@ -112,6 +112,12 @@ module.exports= {
 			callback(results);
 		});
 	},
+	getById_test_report: function(id, callback){
+		var sql = "select * from patient_test_report where user_id='"+id+"'";
+		db.getResults(sql, function(results){
+			callback(results);
+		});
+	},
 	getAll_medicine: function(callback){
 		var sql = "select * from medicine";
 		db.getResults(sql, function(results){
@@ -211,6 +217,18 @@ module.exports= {
 			callback(results1);
 		});
 	},
+	insert_test_report: function(test_report, callback){
+		name = test_report.name;		 	
+		tr_photo = test_report.tr_photo;
+		user_id = test_report.user_id;
+
+		var sql = "INSERT INTO patient_test_report (name,tr_photo,user_id) VALUES ('"+name+"', '"+tr_photo+"', '"+user_id+"')";
+		db.getResults(sql, function(results1){
+            console.log("db.getResults -> results", results1);
+			
+			callback(results1);
+		});
+	},
 	insert_payment: function(payment, callback){
 		gateway = payment.gateway;		 	
 		payment_status = payment.payment_status;
@@ -230,11 +248,10 @@ module.exports= {
 		callback(results);
 });
 	},
+
 	update_user:function(user, callback){
 		id = user.id;
 
-		email = user.email;
-		password = user.password;
 		contactno = user.contactno;
 
 		p_address = user.p_address;
@@ -242,13 +259,15 @@ module.exports= {
 		p_weight = user.p_weight;
 		p_blood_p = user.p_blood_p;
 		p_cal_in = user.p_cal_in;
+		p_birth_date = user.p_birth_date;
+		photo = user.photo;
 		console.log(user)
-		var sql = "update users SET email = '"+email+"',password = '"+password+"',contactno = '"+contactno+"'  WHERE user_id='"+id+"'";
+		var sql = "update users SET contactno = '"+contactno+"', photo = '"+photo+"'  WHERE user_id='"+id+"'";
 		db.getResults(sql, function(results1){
 			//callback(results1);
 			
 		});
-		var sql = "update patient_info SET p_address = '"+p_address+"',p_bmi = '"+p_bmi+"',p_weight = '"+p_weight+"', p_blood_p = '"+p_blood_p+"', p_cal_in = '"+p_cal_in+"' WHERE user_id='"+id+"'";
+		var sql = "update patient_info SET p_birth_date = '"+p_birth_date+"' , p_address = '"+p_address+"',p_bmi = '"+p_bmi+"',p_weight = '"+p_weight+"', p_blood_p = '"+p_blood_p+"', p_cal_in = '"+p_cal_in+"' WHERE user_id='"+id+"'";
 		db.getResults(sql, function(results){
 		callback(results);
 });

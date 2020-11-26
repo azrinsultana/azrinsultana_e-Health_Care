@@ -36,7 +36,7 @@
     
       <div class="w3-white w3-text-grey w3-card-4">
         <div class="w3-display-container">
-          <img src="/abc/img/<%= p_info.photo%>" style="width:100%; height: 30%;" alt="Avatar">
+          <img src="/abc/upload/<%= p_info.photo%>" style="width:100%; height: 30%;" alt="Avatar">
                   <button class="btn btn-info" style="margin-left: 380px;
                   margin-top: 10px;"><a href="/user/edit_info/<%= p_info.id%>">Edit</a></button>
 
@@ -88,12 +88,22 @@
 
       <div class="w3-container w3-card w3-white">
         <div class="nn">
-            <h2 class="w3-text-grey w3-padding-16"><i class="fas fa-procedures fa-fw w3-margin-right w3-xxlarge w3-text-teal"></i>Test Report</h2>   
+            <h2 class="w3-text-grey w3-padding-16"><i class="fas fa-procedures fa-fw w3-margin-right w3-xxlarge w3-text-teal"></i>Test Report</h2> 
+            
             <div class="but2">
-                <button class="btn btn-info">Add</button>
+                <button class="btn btn-info"><a href="/user/add_test_report/<%= test_report[0].user_id%>">Add</a></button>
+
             </div> 
+            
         </div>
-                     
+        <% test_report.forEach( function(std){ %>
+        <div class="w3-container">
+          <h5 class="w3-opacity"><b>Name : <%= std.name%></b></h5>          
+        </div>
+        <div class="w3-container" style="margin-bottom: 30px;">
+          <img src="/abc/upload/<%= std.tr_photo%>" style="width: 200px;height: 200px;">     
+        </div>
+            <%})%>         
       </div>
 
     <!-- End Right Column -->

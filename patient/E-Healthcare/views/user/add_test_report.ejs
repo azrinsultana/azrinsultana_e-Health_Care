@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>E-Health Care | Edit Patient</title>
+	<link rel="stylesheet" href="/abc/css/bootstrap.min.css">
+</head>
+<body>
+	<div class="container">
+		<form method="post" enctype="multipart/form-data">
+			<fieldset>
+				<legend>Add Test Report</legend>
+				<table>
+					<tr>
+						<td>Name</td>
+						<td><input type="text" name="name" "></td>
+					</tr>
+					<tr>
+						<td>Photo</td>
+						<td><input type="file" name="file" ></td>
+					</tr>														
+					<tr>
+						<td></td>
+						<input type="hidden" name="user_id" value="<%=user_id%>">
+						<td><input type="submit" name="submit" value="Submit"></td>
+					</tr>
+				</table>
+			</fieldset>
+		</form>
+	</div>
+</body>
+</html>
