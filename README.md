@@ -1,0 +1,1 @@
+This project is about patient management. Where doctor can manage schedule,withdraw money,consult with patient write blog and also manage the blog and many more, sent HTTP request using GUZZEL api,Two layer security for validate the most sensitive values.
